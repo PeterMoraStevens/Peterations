@@ -1,0 +1,117 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+/* ── Tailwind v4 theme — references CSS custom properties so dark mode works ── */
+@theme inline {
+  --font-sans: var(--font-space-grotesk);
+  --font-mono: var(--font-geist-mono);
+
+  --color-background:           var(--background);
+  --color-foreground:           var(--foreground);
+  --color-card:                 var(--card);
+  --color-card-foreground:      var(--card-foreground);
+  --color-primary:              var(--primary);
+  --color-primary-foreground:   var(--primary-foreground);
+  --color-secondary:            var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted:                var(--muted);
+  --color-muted-foreground:     var(--muted-foreground);
+  --color-accent:               var(--accent);
+  --color-accent-foreground:    var(--accent-foreground);
+  --color-pink:                 var(--pink);
+  --color-destructive:          var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border:               var(--border);
+
+  --shadow-brutal-sm: 2px 2px 0px 0px var(--border);
+  --shadow-brutal:    4px 4px 0px 0px var(--border);
+  --shadow-brutal-lg: 6px 6px 0px 0px var(--border);
+  --shadow-brutal-xl: 8px 8px 0px 0px var(--border);
+
+  --radius: 0.75rem;
+}
+
+/* ── Light mode (default) ─────────────────────────────────────────────────── */
+:root {
+  --background:           #ede9fe;
+  --foreground:           #1a1a2e;
+  --card:                 #ffffff;
+  --card-foreground:      #1a1a2e;
+  --popover:              #ffffff;
+  --popover-foreground:   #1a1a2e;
+  --primary:              #c4b5fd;
+  --primary-foreground:   #1a1a2e;
+  --secondary:            #bbf7d0;
+  --secondary-foreground: #1a1a2e;
+  --muted:                #ddd6fe;
+  --muted-foreground:     #4a4a6a;
+  --accent:               #fef08a;
+  --accent-foreground:    #1a1a2e;
+  --pink:                 #fbcfe8;
+  --destructive:          #ff4444;
+  --destructive-foreground: #ffffff;
+  --border:               #1a1a2e;
+  --input:                #ffffff;
+  --ring:                 #1a1a2e;
+}
+
+/* ── Dark mode ────────────────────────────────────────────────────────────── */
+.dark {
+  --background:           #131320;
+  --foreground:           #f0eeff;
+  --card:                 #1e1e32;
+  --card-foreground:      #f0eeff;
+  --popover:              #1e1e32;
+  --popover-foreground:   #f0eeff;
+  --primary:              #a78bfa;
+  --primary-foreground:   #131320;
+  --secondary:            #1a3328;
+  --secondary-foreground: #86efac;
+  --muted:                #26263e;
+  --muted-foreground:     #a09bc8;
+  --accent:               #2e2600;
+  --accent-foreground:    #fef08a;
+  --pink:                 #3b1030;
+  --destructive:          #f87171;
+  --destructive-foreground: #ffffff;
+  --border:               #38355a;
+  --input:                #1e1e32;
+  --ring:                 #a78bfa;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+}
+
+/* ── Prose image borders ─────────────────────────────────────────────────── */
+.prose-brutal img {
+  border: 2px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-brutal);
+}
+
+/* ── Prose overrides ─────────────────────────────────────────────────────── */
+.prose-brutal {
+  --tw-prose-body:          var(--foreground);
+  --tw-prose-headings:      var(--foreground);
+  --tw-prose-links:         #6d28d9;
+  --tw-prose-bold:          var(--foreground);
+  --tw-prose-counters:      var(--foreground);
+  --tw-prose-bullets:       #7c3aed;
+  --tw-prose-hr:            var(--border);
+  --tw-prose-quotes:        var(--foreground);
+  --tw-prose-quote-borders: #7c3aed;
+  --tw-prose-captions:      var(--muted-foreground);
+  --tw-prose-code:          var(--foreground);
+  --tw-prose-pre-code:      var(--foreground);
+  --tw-prose-pre-bg:        #1e1e1e;
+  --tw-prose-th-borders:    var(--border);
+  --tw-prose-td-borders:    var(--border);
+}
+
+.dark .prose-brutal {
+  --tw-prose-links:         #a78bfa;
+  --tw-prose-bullets:       #a78bfa;
+  --tw-prose-quote-borders: #a78bfa;
+}

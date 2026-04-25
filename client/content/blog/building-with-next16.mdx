@@ -1,0 +1,62 @@
+export const metadata = {
+  title: 'Building with Next.js 16',
+  excerpt: 'Notes on the breaking changes in Next.js 16 and how I navigated them building this site.',
+  publishedAt: '2026-02-01',
+  tags: ['nextjs', 'typescript', 'web dev'],
+  published: true,
+}
+
+# Building with Next.js 16
+
+Next.js 16 has some meaningful breaking changes from what I was used to. Here's what caught me off guard.
+
+## params are now Promises
+
+In Next.js 16, dynamic route parameters are now Promises. You have to `await` them before accessing the values:
+
+```typescript
+// Next.js 16 — params is a Promise
+export default async function Page({
+  params,
+}: {
+  params: Promise<{ slug: string }>
+}) {
+  const { slug } = await params
+  // ...
+}
+```
+
+This enables React's concurrent features more cleanly, but it's a breaking change if you're upgrading.
+
+## Turbopack is the default
+
+Turbopack is now the default bundler. For MDX plugins, this means you can't pass function imports — you have to use string-based plugin names:
+
+```javascript
+// Works with Turbopack
+const withMDX = createMDX({
+  options: {
+    remarkPlugins: ['remark-gfm'],
+    rehypePlugins: ['rehype-slug'],
+  },
+})
+```
+
+<Callout type="warning">
+Plugins that require non-serializable options (JavaScript functions) cannot be used with Turbopack yet. Use the webpack flag if you need them.
+</Callout>
+
+## Tailwind CSS 4
+
+Tailwind v4 drops the `tailwind.config.js` in favor of `@theme inline` in your CSS file. Everything lives in `globals.css` now:
+
+```css
+@import "tailwindcss";
+
+@theme inline {
+  --color-primary: #ff4800;
+  --font-display: "Orbitron", monospace;
+}
+```
+
+Overall, Next.js 16 feels faster and cleaner. The changes are worth it.
