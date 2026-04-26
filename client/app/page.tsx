@@ -8,10 +8,10 @@ import { getAboutLinks } from '@/lib/db/about'
 import type { AboutLink } from '@/types'
 
 const sections = [
-  { href: '/blog', icon: BookOpen, label: 'Blog', desc: 'Writing on software, design, and everything else.', color: 'bg-card' },
-  { href: '/projects', icon: FolderGit2, label: 'Projects', desc: 'Things I have built — tools, apps, and experiments.', color: 'bg-secondary' },
-  { href: '/photography', icon: Camera, label: 'Photos', desc: 'A visual log of places, light, and moments.', color: 'bg-accent' },
-  { href: '/about', icon: User, label: 'About', desc: "Background, experience, and what I'm up to.", color: 'bg-muted' },
+  { href: '/blog', icon: BookOpen, label: 'Blog', desc: 'Writing on software, career, and everything else.', color: 'bg-card' },
+  { href: '/projects', icon: FolderGit2, label: 'Projects', desc: "Things I've built and been able to host.", color: 'bg-secondary' },
+  { href: '/photography', icon: Camera, label: 'Photos', desc: 'A visual and written log of places, light, and moments.', color: 'bg-accent' },
+  { href: '/about', icon: User, label: 'About', desc: "Career experiences and what I'm up to.", color: 'bg-muted' },
 ]
 
 function socialIcon(link: AboutLink) {
@@ -38,11 +38,11 @@ export default async function HomePage() {
               Peter<br />Mora-Stevens
             </h1>
             <p className="text-lg font-medium max-w-md mb-8 leading-relaxed">
-              A personal corner of the internet. Blog, photography, and a log of living well.
+              A personal corner of the internet. My Blog, some photography, and a little about me.
             </p>
             <div className="flex flex-wrap gap-3 mb-4">
               <Button asChild size="lg" variant="default">
-                <Link href="/blog">Read the Blog <ArrowRight size={16} /></Link>
+                <Link href="/blog">Read my Blog <ArrowRight size={16} /></Link>
               </Button>
               <Button asChild variant="outline" size="lg">
                 <Link href="/about">About me</Link>
