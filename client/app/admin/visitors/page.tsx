@@ -3,17 +3,19 @@ import { Clock, CheckCheck } from 'lucide-react'
 import { GuestbookEntryRow } from '@/components/admin/GuestbookEntryRow'
 import type { GuestbookEntry } from '@/types'
 
-async function getAllEntries(): Promise<GuestbookEntry[]> {
+export const dynamic = 'force-dynamic'
+
+async function getAllEntries(): Promise<{ entries: GuestbookEntry[]; error?: string }> {
   try {
     const { getAllEntries } = await import('@/lib/db/guestbook')
-    return getAllEntries()
-  } catch {
-    return []
+    return { entries: await getAllEntries() }
+  } catch (err) {
+    return { entries: [], error: (err as Error).message }
   }
 }
 
 export default async function AdminVisitorsPage() {
-  const entries = await getAllEntries()
+  const { entries, error } = await getAllEntries()
   const pending = entries.filter((e) => !e.approved)
   const approved = entries.filter((e) => e.approved)
 
@@ -26,6 +28,12 @@ export default async function AdminVisitorsPage() {
           <span className="flex items-center gap-1"><CheckCheck size={14} />{approved.length} approved</span>
         </div>
       </div>
+
+      {error && (
+        <div className="mb-6 border-2 border-destructive bg-destructive/10 rounded-xl p-4 text-sm font-mono text-destructive">
+          DB error: {error}
+        </div>
+      )}
 
       {entries.length === 0 ? (
         <div className="border-2 border-border shadow-brutal rounded-2xl p-12 text-center bg-card">
