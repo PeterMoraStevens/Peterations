@@ -83,20 +83,20 @@ export function PhotoGrid({ photos }: { photos: Photo[] }) {
             <ChevronRight size={20} />
           </button>
 
-          {/* Image + info overlay — group hover hides the info panel */}
+          {/* Image + info below */}
           <div
-            className="group relative max-h-[90vh] max-w-[90vw]"
+            className="flex flex-col max-w-[90vw] max-h-[90vh] overflow-y-auto"
             onClick={(e) => e.stopPropagation()}
           >
             <img
               src={current.url}
               alt={current.title ?? 'Photo'}
-              className="max-h-[90vh] max-w-[90vw] w-auto h-auto border-2 border-white block"
+              className="max-w-[90vw] w-auto border-2 border-white block shrink-0"
+              style={{ maxHeight: 'calc(90vh - 120px)', objectFit: 'contain' }}
             />
 
-            {/* Info overlay — visible by default, hidden on hover */}
             {hasInfo && (
-              <div className="absolute inset-x-0 bottom-0 bg-black/75 backdrop-blur-sm px-5 py-4 space-y-1.5 opacity-100 group-hover:opacity-0 transition-opacity duration-200 pointer-events-none">
+              <div className="bg-black/90 border-2 border-t-0 border-white px-5 py-4 space-y-1.5 shrink-0">
                 {current.title && (
                   <p className="text-white font-bold text-base leading-tight">{current.title}</p>
                 )}

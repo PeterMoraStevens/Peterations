@@ -143,3 +143,15 @@ CREATE TABLE IF NOT EXISTS dish_entries (
 );
 
 ALTER TABLE photos ADD COLUMN IF NOT EXISTS group_id UUID REFERENCES living_groups(id) ON DELETE SET NULL;
+
+CREATE TABLE IF NOT EXISTS guestbook_entries (
+  id         UUID        PRIMARY KEY DEFAULT gen_random_uuid(),
+  name       TEXT        NOT NULL DEFAULT 'Anonymous',
+  message    TEXT        NOT NULL,
+  approved   BOOLEAN     NOT NULL DEFAULT false,
+  reply      TEXT,
+  replied_at TIMESTAMPTZ,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+CREATE INDEX IF NOT EXISTS guestbook_approved_idx ON guestbook_entries (approved, created_at DESC);

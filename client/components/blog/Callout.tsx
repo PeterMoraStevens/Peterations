@@ -41,12 +41,14 @@ const calloutConfig: Record<
 
 interface CalloutProps {
   type?: CalloutType;
+  label?: string;
   children: React.ReactNode;
 }
 
-export function Callout({ type = "note", children }: CalloutProps) {
+export function Callout({ type = "note", label, children }: CalloutProps) {
   const config = calloutConfig[type];
   const Icon = config.icon;
+  const displayLabel = label?.trim() || config.label;
 
   return (
     <div
@@ -59,7 +61,7 @@ export function Callout({ type = "note", children }: CalloutProps) {
       <div className="flex items-center gap-2 mb-2">
         <Icon size={16} className="shrink-0" />
         <span className="text-xs font-black tracking-widest">
-          {config.label}
+          {displayLabel}
         </span>
       </div>
       <div className="text-sm [&>p]:m-0">{children}</div>

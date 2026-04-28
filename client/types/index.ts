@@ -107,6 +107,16 @@ export interface AboutProfile {
   skills: string[]
 }
 
+export interface GuestbookEntry {
+  id: string
+  name: string
+  message: string
+  approved: boolean
+  reply?: string
+  repliedAt?: string
+  createdAt: string
+}
+
 export interface TimelineEntry {
   id: string
   role: string

@@ -27,6 +27,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 }
 
+function sanitizeMdx(content: string): string {
+  // Ensure JSX block components always start on their own blank line.
+  // This repairs content saved before the editor enforced proper separation
+  // (e.g. "![img](url)<Callout" on one line).
+  return content.replace(/([^\n])(<(?:Callout|\/Callout))/g, '$1\n\n$2')
+}
+
 export default async function BlogPostPage({ params }: Props) {
   const { post } = await params
 
@@ -89,7 +96,7 @@ export default async function BlogPostPage({ params }: Props) {
       </header>
 
       <article className="prose prose-lg max-w-none prose-brutal">
-        <MDXRemote source={blogPost.content ?? ''} components={mdxComponents} />
+        <MDXRemote source={sanitizeMdx(blogPost.content ?? '')} components={mdxComponents} />
       </article>
 
       <div className="mt-16 pt-8 border-t-2 border-border">

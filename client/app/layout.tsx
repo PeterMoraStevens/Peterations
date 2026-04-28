@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     default: 'Peter Mora-Stevens',
     template: '%s | Peter Mora-Stevens',
   },
-  description: 'Personal website of Peter Mora-Stevens — blog, photography, and life.',
+  description: 'A blog, some photography, and a bit about me.',
 }
 
 export default function RootLayout({
