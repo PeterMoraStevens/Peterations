@@ -53,12 +53,12 @@ export function Callout({ type = "note", label, children }: CalloutProps) {
   return (
     <div
       className={cn(
-        "my-6 border-2 border-l-4 p-4 shadow-brutal text-white",
+        "my-6 border-2 border-l-4 p-4 shadow-brutal",
         config.bg,
         config.border,
       )}
     >
-      <div className="flex items-center gap-2 mb-2">
+      <div className="flex items-center gap-2 mb-2 text-white">
         <Icon size={16} className="shrink-0" />
         <span className="text-xs font-black tracking-widest">
           {displayLabel}
