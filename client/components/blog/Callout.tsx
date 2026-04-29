@@ -15,25 +15,25 @@ const calloutConfig: Record<
 > = {
   note: {
     icon: Info,
-    bg: "bg-[#e8f4ff] dark:bg-[#0c1e3d]",
+    bg: "bg-[#0c1e3d]",
     border: "border-[#0066cc]",
     label: "NOTE",
   },
   warning: {
     icon: AlertTriangle,
-    bg: "bg-[#fff8e0] dark:bg-[#231800]",
+    bg: "bg-[#231800]",
     border: "border-[#ff9900]",
     label: "WARNING",
   },
   tip: {
     icon: CheckCircle,
-    bg: "bg-[#e0fff4] dark:bg-[#001f14]",
+    bg: "bg-[#001f14]",
     border: "border-[#00cc66]",
     label: "TIP",
   },
   important: {
     icon: Zap,
-    bg: "bg-[#ffe8e8] dark:bg-[#2a0a0a]",
+    bg: "bg-[#2a0a0a]",
     border: "border-[#ff4800]",
     label: "IMPORTANT",
   },
