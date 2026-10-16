@@ -115,3 +115,93 @@ body {
   --tw-prose-bullets:       #a78bfa;
   --tw-prose-quote-borders: #a78bfa;
 }
+
+/* ── Blog marks: stored by name so each gets a light + dark variant ──────── */
+:root {
+  --hl-yellow: #fef08a; --hl-green: #bbf7d0; --hl-blue: #bfdbfe;
+  --hl-pink:   #fbcfe8; --hl-purple: #ddd6fe; --hl-orange: #fed7aa;
+  --tc-red: #dc2626; --tc-orange: #ea580c; --tc-green: #16a34a;
+  --tc-blue: #2563eb; --tc-purple: #7c3aed; --tc-muted: var(--muted-foreground);
+  --chart-1: #a78bfa; --chart-2: #86efac; --chart-3: #fde047;
+  --chart-4: #f9a8d4; --chart-5: #93c5fd; --chart-6: #fdba74;
+}
+.dark {
+  --hl-yellow: #854d0e; --hl-green: #166534; --hl-blue: #1e40af;
+  --hl-pink:   #9d174d; --hl-purple: #5b21b6; --hl-orange: #9a3412;
+  --tc-red: #f87171; --tc-orange: #fb923c; --tc-green: #4ade80;
+  --tc-blue: #60a5fa; --tc-purple: #c4b5fd;
+  --chart-1: #8b5cf6; --chart-2: #22c55e; --chart-3: #eab308;
+  --chart-4: #ec4899; --chart-5: #3b82f6; --chart-6: #f97316;
+}
+mark[data-color] {
+  color: inherit;
+  border-radius: 0.25em;
+  padding: 0 0.15em;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+mark[data-color="yellow"] { background: var(--hl-yellow); }
+mark[data-color="green"]  { background: var(--hl-green); }
+mark[data-color="blue"]   { background: var(--hl-blue); }
+mark[data-color="pink"]   { background: var(--hl-pink); }
+mark[data-color="purple"] { background: var(--hl-purple); }
+mark[data-color="orange"] { background: var(--hl-orange); }
+[data-text-color="red"]    { color: var(--tc-red); }
+[data-text-color="orange"] { color: var(--tc-orange); }
+[data-text-color="green"]  { color: var(--tc-green); }
+[data-text-color="blue"]   { color: var(--tc-blue); }
+[data-text-color="purple"] { color: var(--tc-purple); }
+[data-text-color="muted"]  { color: var(--tc-muted); }
+
+/* ── Prose extras: headings anchor offset, tables, task lists ─────────────── */
+.prose-brutal :is(h2, h3) { scroll-margin-top: 6rem; }
+.prose-brutal :is(h2, h3) > a { color: inherit; text-decoration: none; }
+.prose-brutal table {
+  border: 2px solid var(--border);
+  border-collapse: separate;
+  border-spacing: 0;
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow-brutal);
+}
+.prose-brutal thead { background: var(--primary); }
+.prose-brutal :is(th, td) { padding: 0.5rem 0.75rem; border-color: var(--border); }
+.prose-brutal tbody tr + tr td { border-top: 2px solid var(--border); }
+.prose-brutal :is(th, td) + :is(th, td) { border-left: 2px solid var(--border); }
+.prose-brutal ul.contains-task-list { list-style: none; padding-left: 0.25rem; }
+.prose-brutal input[type="checkbox"] { accent-color: #7c3aed; margin-right: 0.5rem; }
+
+/* ── Syntax highlighting (rehype-pretty-code / shiki) ─────────────────────── */
+.prose-brutal figure[data-rehype-pretty-code-figure] { margin: 0; }
+.prose-brutal pre [data-line] { padding: 0 0.25rem; }
+
+/* ── Blog editor ──────────────────────────────────────────────────────────── */
+.blog-editor .ProseMirror { outline: none; }
+.blog-editor .ProseMirror > * + * { margin-top: 0.9em; }
+.blog-editor .ProseMirror :is(p, h1, h2, h3, h4).is-empty::before {
+  content: attr(data-placeholder);
+  float: left;
+  height: 0;
+  pointer-events: none;
+  color: var(--muted-foreground);
+  opacity: 0.55;
+}
+.blog-editor ul[data-type="taskList"] { list-style: none; padding-left: 0.25rem; }
+.blog-editor ul[data-type="taskList"] li { display: flex; gap: 0.6rem; align-items: flex-start; }
+.blog-editor ul[data-type="taskList"] li > label { margin-top: 0.35em; user-select: none; }
+.blog-editor ul[data-type="taskList"] li > div { flex: 1; }
+.blog-editor ul[data-type="taskList"] li > div > p { margin: 0; }
+.blog-editor ul[data-type="taskList"] input[type="checkbox"] { accent-color: #7c3aed; width: 1rem; height: 1rem; }
+.blog-editor .tableWrapper { overflow-x: auto; padding: 4px; }
+.blog-editor table td, .blog-editor table th { position: relative; vertical-align: top; min-width: 4rem; }
+.blog-editor table :is(td, th) > p { margin: 0; }
+.blog-editor .selectedCell::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: color-mix(in srgb, var(--primary) 35%, transparent);
+  pointer-events: none;
+}
+.blog-editor .ProseMirror-selectednode:not([data-node-view-wrapper]) { outline: 2px solid #7c3aed; outline-offset: 4px; border-radius: 0.5rem; }
+.blog-editor hr.ProseMirror-selectednode { outline-offset: 2px; }
+.blog-editor .ProseMirror-gapcursor::after { border-top-color: var(--foreground); }

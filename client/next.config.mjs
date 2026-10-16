@@ -1,7 +1,12 @@
 import createMDX from "@next/mdx";
+import { fileURLToPath } from "node:url";
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // A stray package-lock.json in the home directory makes Turbopack guess the wrong root.
+  turbopack: {
+    root: fileURLToPath(new URL(".", import.meta.url)),
+  },
   pageExtensions: ["js", "jsx", "md", "mdx", "ts", "tsx"],
   images: {
     remotePatterns: [

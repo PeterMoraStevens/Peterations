@@ -7,6 +7,15 @@ export function PostCard({ post }: { post: BlogPost }) {
   return (
     <Link href={`/blog/${post.slug}`} className="block group">
       <article className="bg-card border-2 border-border shadow-brutal rounded-2xl overflow-hidden h-full flex flex-col transition-shadow group-hover:shadow-brutal-lg">
+        {post.coverImage && (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            src={post.coverImage}
+            alt=""
+            loading="lazy"
+            className="block w-full aspect-[16/9] object-cover border-b-2 border-border transition-transform duration-300 group-hover:scale-[1.02]"
+          />
+        )}
         <div className="p-5 flex flex-col flex-1 gap-2">
 
           {/* Title */}

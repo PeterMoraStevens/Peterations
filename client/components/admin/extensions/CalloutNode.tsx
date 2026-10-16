@@ -4,6 +4,7 @@ import { Node, mergeAttributes } from '@tiptap/core'
 import { ReactNodeViewRenderer, NodeViewWrapper, NodeViewContent } from '@tiptap/react'
 import { cn } from '@/lib/utils'
 import { Info, AlertTriangle, CheckCircle, Zap } from 'lucide-react'
+import { container } from './markdown'
 
 type CalloutType = 'note' | 'warning' | 'tip' | 'important'
 
@@ -63,13 +64,14 @@ function CalloutNodeView({ node, updateAttributes }: {
           })}
         </div>
       </div>
-      <NodeViewContent className="text-sm [&>p]:m-0" />
+      <NodeViewContent className="text-sm [&>p]:my-2 [&>:first-child]:mt-0 [&>:last-child]:mb-0" />
     </NodeViewWrapper>
   )
 }
 
 export const CalloutNode = Node.create({
   name: 'callout',
+  draggable: true,
   group: 'block',
   content: 'block+',
   defining: true,
@@ -105,31 +107,9 @@ export const CalloutNode = Node.create({
   addStorage() {
     return {
       markdown: {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        serialize(state: any, node: any) {
-          const text = node.textContent.trim()
-          const customLabel = node.attrs.label?.trim()
-          // Ensure a blank line before the tag
-          if (state.out.length > 0) {
-            if (state.out.endsWith('\n\n')) { /* already blank */ }
-            else if (state.out.endsWith('\n')) { state.out += '\n' }
-            else { state.out += '\n\n' }
-          }
-          const labelAttr = customLabel ? ` label="${customLabel}"` : ''
-          state.out += `<Callout type="${node.attrs.calloutType}"${labelAttr}>\n${text}\n</Callout>\n\n`
-        },
+        serialize: container('Callout', (n) => ({ type: n.attrs.calloutType, label: n.attrs.label?.trim() })),
+        parse: {},
       },
     }
   },
 })
-
-export function preprocessCallouts(md: string): string {
-  const normalised = md.replace(/([^\n])(<Callout)/g, '$1\n\n$2')
-  return normalised.replace(
-    /<Callout\s+type="(note|warning|tip|important)"(?:\s+label="([^"]*)")?>([\s\S]*?)<\/Callout>/g,
-    (_, type: string, label: string | undefined, content: string) => {
-      const labelAttr = label ? ` data-callout-label="${label}"` : ''
-      return `\n\n<div data-callout-type="${type}"${labelAttr}>\n\n${content.trim()}\n\n</div>\n\n`
-    },
-  )
-}

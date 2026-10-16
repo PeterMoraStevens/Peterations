@@ -64,7 +64,7 @@ export function Callout({ type = "note", label, children }: CalloutProps) {
           {displayLabel}
         </span>
       </div>
-      <div className="text-sm [&>p]:m-0">{children}</div>
+      <div className="text-sm [&>p]:my-2 [&>:first-child]:mt-0 [&>:last-child]:mb-0 [&_a]:text-white [&_code]:text-white">{children}</div>
     </div>
   );
 }

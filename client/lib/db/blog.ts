@@ -97,6 +97,7 @@ export async function saveBlogPost(
   const now = new Date()
 
   if (id) {
+    const previous = await sql<{ slug: string }[]>`SELECT slug FROM posts WHERE id = ${id}`
     await sql`
       UPDATE posts SET
         slug         = ${slug},
@@ -115,6 +116,8 @@ export async function saveBlogPost(
       WHERE id = ${id}
     `
     await invalidatePostCache(slug)
+    // A renamed slug would otherwise keep serving the old cached copy.
+    if (previous[0] && previous[0].slug !== slug) await invalidatePostCache(previous[0].slug)
     return id
   }
 
