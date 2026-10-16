@@ -1,34 +1,35 @@
-import type { Metadata } from 'next'
-import { Space_Grotesk } from 'next/font/google'
-import { Geist_Mono } from 'next/font/google'
-import './globals.css'
-import { ChromeNav } from '@/components/chrome/ChromeNav'
-import { Footer } from '@/components/layout/Footer'
-import { ThemeProvider } from '@/components/ThemeProvider'
-import { ScrollToTop } from '@/components/ScrollToTop'
+import type { Metadata } from "next";
+import Script from "next/script";
+import { Space_Grotesk } from "next/font/google";
+import { Geist_Mono } from "next/font/google";
+import "./globals.css";
+import { ChromeNav } from "@/components/chrome/ChromeNav";
+import { Footer } from "@/components/layout/Footer";
+import { ThemeProvider } from "@/components/ThemeProvider";
+import { ScrollToTop } from "@/components/ScrollToTop";
 
 const spaceGrotesk = Space_Grotesk({
-  variable: '--font-space-grotesk',
-  subsets: ['latin'],
-})
+  variable: "--font-space-grotesk",
+  subsets: ["latin"],
+});
 
 const geistMono = Geist_Mono({
-  variable: '--font-geist-mono',
-  subsets: ['latin'],
-})
+  variable: "--font-geist-mono",
+  subsets: ["latin"],
+});
 
 export const metadata: Metadata = {
   title: {
-    default: 'Peter Mora-Stevens',
-    template: '%s | Peter Mora-Stevens',
+    default: "Peter Mora-Stevens",
+    template: "%s | Peter Mora-Stevens",
   },
-  description: 'A blog, some photography, and a bit about me.',
-}
+  description: "A blog, some photography, and a bit about me.",
+};
 
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode
+  children: React.ReactNode;
 }>) {
   return (
     <html
@@ -44,6 +45,11 @@ export default function RootLayout({
           <Footer />
         </ThemeProvider>
       </body>
+      <Script
+        src="https://umami.petermorastevens.rocks/script.js"
+        data-website-id="582e0ecb-6988-4e34-8731-c4bae3c199bd"
+        strategy="afterInteractive"
+      />
     </html>
-  )
+  );
 }

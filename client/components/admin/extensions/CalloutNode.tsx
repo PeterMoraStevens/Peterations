@@ -31,7 +31,7 @@ function CalloutNodeView({ node, updateAttributes }: {
   const label = node.attrs.label  // empty string = use type default
 
   return (
-    <NodeViewWrapper className={cn('my-4 border-2 border-l-4 p-4 shadow-brutal not-prose', config.bg, config.border)}>
+    <NodeViewWrapper className={cn('my-4 border-2 border-l-4 p-4 shadow-brutal not-prose text-white', config.bg, config.border)}>
       <div contentEditable={false} className="flex items-center gap-2 mb-2">
         <Icon size={14} className="shrink-0" />
         <input

@@ -1,28 +1,32 @@
-'use client'
+/* eslint-disable react-hooks/set-state-in-effect */
+"use client";
 
-import React, { useState, useEffect } from 'react'
-import { createPortal } from 'react-dom'
-import { X } from 'lucide-react'
+import React, { useState, useEffect } from "react";
+import { createPortal } from "react-dom";
+import { X } from "lucide-react";
+import Image from "next/image";
 
 interface BlogImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {
-  src: string
-  alt?: string
+  src: string;
+  alt?: string;
 }
 
 export function BlogImage({ src, alt, className, ...props }: BlogImageProps) {
-  const [open, setOpen] = useState(false)
-  const [mounted, setMounted] = useState(false)
-
-  useEffect(() => { setMounted(true) }, [])
+  const [open, setOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    if (!open) return
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (!open) return;
     function onKey(e: KeyboardEvent) {
-      if (e.key === 'Escape') setOpen(false)
+      if (e.key === "Escape") setOpen(false);
     }
-    window.addEventListener('keydown', onKey)
-    return () => window.removeEventListener('keydown', onKey)
-  }, [open])
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [open]);
 
   const lightbox = open ? (
     <div
@@ -35,25 +39,29 @@ export function BlogImage({ src, alt, className, ...props }: BlogImageProps) {
       >
         <X size={18} />
       </button>
-      <img
+      <Image
+        height={400}
+        width={400}
         src={src}
-        alt={alt ?? ''}
+        alt={alt ?? ""}
         className="max-h-[90vh] max-w-[90vw] w-auto h-auto border-2 border-white block"
         onClick={(e) => e.stopPropagation()}
       />
     </div>
-  ) : null
+  ) : null;
 
   return (
     <>
-      <img
+      <Image
         src={src}
-        alt={alt ?? ''}
-        className={`cursor-zoom-in ${className ?? ''}`}
+        height={800}
+        width={800}
+        alt={alt ?? ""}
+        className={`cursor-zoom-in ${className ?? ""} w-auto max-h-400px`}
         onClick={() => setOpen(true)}
         {...props}
       />
       {mounted && createPortal(lightbox, document.body)}
     </>
-  )
+  );
 }
