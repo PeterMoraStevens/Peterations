@@ -37,6 +37,18 @@ export default function RootLayout({
       suppressHydrationWarning
       className={`${spaceGrotesk.variable} ${geistMono.variable} h-full antialiased`}
     >
+      <head>
+        <Script
+          src="https://umami.petermorastevens.rocks/script.js"
+          data-website-id="582e0ecb-6988-4e34-8731-c4bae3c199bd"
+          strategy="afterInteractive"
+        />
+        <script
+          data-goatcounter="https://goatcounter.localhost/count"
+          async
+          src="//goatcounter.localhost/count.js"
+        ></script>
+      </head>
       <body className="min-h-full flex flex-col bg-background text-foreground">
         <ThemeProvider>
           <ScrollToTop />
@@ -45,11 +57,6 @@ export default function RootLayout({
           <Footer />
         </ThemeProvider>
       </body>
-      <Script
-        src="https://umami.petermorastevens.rocks/script.js"
-        data-website-id="582e0ecb-6988-4e34-8731-c4bae3c199bd"
-        strategy="afterInteractive"
-      />
     </html>
   );
 }

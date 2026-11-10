@@ -117,6 +117,20 @@ export interface GuestbookEntry {
   createdAt: string
 }
 
+export interface PostComment {
+  id: string
+  postId: string
+  parentId?: string
+  name: string
+  message: string
+  isAuthor: boolean
+  approved: boolean
+  createdAt: string
+  /** Only populated on admin listings. */
+  postTitle?: string
+  postSlug?: string
+}
+
 export interface TimelineEntry {
   id: string
   role: string

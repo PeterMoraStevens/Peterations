@@ -155,3 +155,17 @@ CREATE TABLE IF NOT EXISTS guestbook_entries (
 );
 
 CREATE INDEX IF NOT EXISTS guestbook_approved_idx ON guestbook_entries (approved, created_at DESC);
+
+CREATE TABLE IF NOT EXISTS post_comments (
+  id         UUID        PRIMARY KEY DEFAULT gen_random_uuid(),
+  post_id    UUID        NOT NULL REFERENCES posts(id) ON DELETE CASCADE,
+  parent_id  UUID        REFERENCES post_comments(id) ON DELETE CASCADE,
+  name       TEXT        NOT NULL DEFAULT 'Anonymous',
+  message    TEXT        NOT NULL,
+  is_author  BOOLEAN     NOT NULL DEFAULT false,
+  approved   BOOLEAN     NOT NULL DEFAULT false,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+CREATE INDEX IF NOT EXISTS post_comments_post_idx     ON post_comments (post_id, approved, created_at ASC);
+CREATE INDEX IF NOT EXISTS post_comments_approved_idx ON post_comments (approved, created_at DESC);

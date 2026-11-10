@@ -4,13 +4,14 @@ import React from 'react'
 import Link from 'next/link'
 import { signOut } from 'next-auth/react'
 import { Button } from '@/components/ui/button'
-import { FileText, Camera, User, LogOut, FolderGit2, BookOpen } from 'lucide-react'
+import { FileText, Camera, User, LogOut, FolderGit2, BookOpen, MessageSquare } from 'lucide-react'
 
 const adminSections = [
   { href: '/admin/blog', icon: FileText, label: 'Blog Posts', desc: 'Manage post metadata and publish state' },
   { href: '/admin/projects', icon: FolderGit2, label: 'Projects', desc: 'Add and manage projects' },
   { href: '/admin/photography', icon: Camera, label: 'Photography', desc: 'Upload and manage photos' },
   { href: '/admin/about', icon: User, label: 'About', desc: 'Edit bio, links, and experience' },
+  { href: '/admin/comments', icon: MessageSquare, label: 'Comments', desc: 'Moderate and reply to blog comments' },
   { href: '/admin/visitors', icon: BookOpen, label: "Visitor's Book", desc: 'Approve and manage visitor messages' },
 ]
 

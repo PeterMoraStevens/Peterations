@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button'
 import { mdxComponents, mdxOptions } from '@/components/blog/mdx-components'
 import { ReadingProgress } from '@/components/blog/ReadingProgress'
 import { TableOfContents } from '@/components/blog/TableOfContents'
+import { Comments } from '@/components/blog/Comments'
 import { extractHeadings, sanitizeMdx } from '@/lib/blog/content'
 import { formatDate } from '@/lib/utils'
 import { ArrowLeft, Clock, Calendar, Eye, Pencil } from 'lucide-react'
@@ -60,6 +61,7 @@ export default async function BlogPostPage({ params }: Props) {
   const content = sanitizeMdx(blogPost.content ?? '')
   const headings = extractHeadings(content)
   const showToc = headings.length >= 3
+  const isAdmin = preview || !!(await auth())
 
   return (
     <>
@@ -133,6 +135,10 @@ export default async function BlogPostPage({ params }: Props) {
             <article className="prose prose-lg max-w-none prose-brutal">
               <MDXRemote source={content} components={mdxComponents} options={mdxOptions} />
             </article>
+
+            {blogPost.published && blogPost.id && (
+              <Comments postId={blogPost.id} slug={blogPost.slug} isAdmin={isAdmin} />
+            )}
 
             <div className="mt-16 pt-8 border-t-2 border-border">
               <Button asChild variant="outline">
