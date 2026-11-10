@@ -44,9 +44,9 @@ export default function RootLayout({
           strategy="afterInteractive"
         />
         <script
-          data-goatcounter="https://goatcounter.localhost/count"
+          data-goatcounter="https://goat-counter.petermorastevens.rocks/count"
           async
-          src="//goatcounter.localhost/count.js"
+          src="//goat-counter.petermorastevens.rocks/count.js"
         ></script>
       </head>
       <body className="min-h-full flex flex-col bg-background text-foreground">
