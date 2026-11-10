@@ -205,3 +205,15 @@ mark[data-color="orange"] { background: var(--hl-orange); }
 .blog-editor .ProseMirror-selectednode:not([data-node-view-wrapper]) { outline: 2px solid #7c3aed; outline-offset: 4px; border-radius: 0.5rem; }
 .blog-editor hr.ProseMirror-selectednode { outline-offset: 2px; }
 .blog-editor .ProseMirror-gapcursor::after { border-top-color: var(--foreground); }
+
+/* ConfirmDialog open animation */
+@keyframes confirm-overlay-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes confirm-content-in {
+  from { opacity: 0; transform: translate(-50%, -46%) scale(0.96); }
+  to   { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+}
+.confirm-overlay[data-state="open"] { animation: confirm-overlay-in 150ms ease-out; }
+.confirm-content[data-state="open"] { animation: confirm-content-in 180ms cubic-bezier(0.16, 1, 0.3, 1); }
+@media (prefers-reduced-motion: reduce) {
+  .confirm-overlay[data-state="open"], .confirm-content[data-state="open"] { animation: none; }
+}

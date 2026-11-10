@@ -64,10 +64,10 @@ export async function createComment(input: {
   message: string
   isAuthor: boolean
 }): Promise<PostComment> {
-  // Author comments skip moderation.
+  // Comments go live immediately; spam is handled by rate limiting in the API route.
   const rows = await sql<Row[]>`
     INSERT INTO post_comments (post_id, parent_id, name, message, is_author, approved)
-    VALUES (${input.postId}, ${input.parentId ?? null}, ${input.name}, ${input.message}, ${input.isAuthor}, ${input.isAuthor})
+    VALUES (${input.postId}, ${input.parentId ?? null}, ${input.name}, ${input.message}, ${input.isAuthor}, true)
     RETURNING *
   `
   return rowToComment(rows[0])

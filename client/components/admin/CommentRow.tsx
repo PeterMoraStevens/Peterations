@@ -8,6 +8,7 @@ import { CommentForm } from '@/components/blog/CommentForm'
 import { Check, Trash2, Reply, CornerDownRight, ExternalLink } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
+import { ConfirmDialog } from '@/components/ui/confirm-dialog'
 import type { PostComment } from '@/types'
 
 export function CommentRow({ comment, parent, stripe }: { comment: PostComment; parent?: PostComment; stripe: boolean }) {
@@ -55,11 +56,16 @@ export function CommentRow({ comment, parent, stripe }: { comment: PostComment; 
               <Reply size={12} /> Reply
             </Button>
           )}
-          <form action={deleteCommentAction.bind(null, comment.id)}>
-            <Button type="submit" size="sm" variant="destructive" title="Delete (also deletes replies)">
-              <Trash2 size={12} />
-            </Button>
-          </form>
+          <ConfirmDialog
+            title="Delete this comment?"
+            description={<>{comment.name}’s comment will be permanently removed, along with any replies to it.</>}
+            onConfirm={() => deleteCommentAction(comment.id)}
+            trigger={
+              <Button type="button" size="sm" variant="destructive" title="Delete (also deletes replies)" aria-label="Delete comment">
+                <Trash2 size={12} />
+              </Button>
+            }
+          />
         </div>
       </div>
 

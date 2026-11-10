@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { formatDate } from '@/lib/utils'
 import { deleteCommentAction } from '@/app/actions/comments'
 import { Badge } from '@/components/ui/badge'
+import { ConfirmDialog } from '@/components/ui/confirm-dialog'
 import { CommentForm } from './CommentForm'
 import { Reply, Trash2 } from 'lucide-react'
 import type { PostComment } from '@/types'
@@ -32,7 +33,6 @@ export function CommentThread({ comments, slug, isAdmin, depth = 0 }: Props) {
 
 function CommentItem({ comment, slug, isAdmin, depth }: { comment: CommentNode; slug: string; isAdmin: boolean; depth: number }) {
   const [replying, setReplying] = useState(false)
-  const [deleting, setDeleting] = useState(false)
   const indent = depth < MAX_INDENT_DEPTH
 
   return (
@@ -58,18 +58,23 @@ function CommentItem({ comment, slug, isAdmin, depth }: { comment: CommentNode; 
             <Reply size={12} /> Reply
           </button>
           {isAdmin && (
-            <button
-              type="button"
-              disabled={deleting}
-              onClick={async () => {
-                if (comment.replies.length && !window.confirm('Delete this comment and all its replies?')) return
-                setDeleting(true)
-                await deleteCommentAction(comment.id)
-              }}
-              className="inline-flex items-center gap-1 text-xs font-semibold text-muted-foreground hover:text-destructive disabled:opacity-30"
-            >
-              <Trash2 size={12} /> {deleting ? 'Deleting…' : 'Delete'}
-            </button>
+            <ConfirmDialog
+              title={comment.replies.length ? 'Delete comment and replies?' : 'Delete this comment?'}
+              description={
+                comment.replies.length
+                  ? `This will permanently delete ${comment.name}’s comment and its ${comment.replies.length === 1 ? 'reply' : `${comment.replies.length} replies`}.`
+                  : `${comment.name}’s comment will be permanently removed.`
+              }
+              onConfirm={() => deleteCommentAction(comment.id)}
+              trigger={
+                <button
+                  type="button"
+                  className="inline-flex items-center gap-1 text-xs font-semibold text-muted-foreground hover:text-destructive"
+                >
+                  <Trash2 size={12} /> Delete
+                </button>
+              }
+            />
           )}
         </div>
       </div>
